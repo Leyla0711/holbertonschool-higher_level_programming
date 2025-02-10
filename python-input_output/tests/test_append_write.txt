@@ -1,0 +1,6 @@
+>>> from append_write import append_write
+>>> append_write("file_append.txt", "Hello World!\n")
+13
+>>> append_write("file_append.txt", "Another line.\n")
+15
+
