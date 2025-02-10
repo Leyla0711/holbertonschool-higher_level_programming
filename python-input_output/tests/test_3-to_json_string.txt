@@ -1,0 +1,7 @@
+>>> from 3-to_json_string import to_json_string
+>>> to_json_string([1, 2, 3])
+'[1, 2, 3]'
+>>> to_json_string({"key": "value"})
+'{"key": "value"}'
+>>> to_json_string({"id": 1, "name": "John"})
+'{"id": 1, "name": "John"}'

@@ -1,0 +1,7 @@
+>>> from 4-from_json_string import from_json_string
+>>> from_json_string('[1, 2, 3]')
+[1, 2, 3]
+>>> from_json_string('{"key": "value"}')
+{'key': 'value'}
+>>> from_json_string('{"id": 12, "name": "Alice"}')
+{'id': 12, 'name': 'Alice'}
