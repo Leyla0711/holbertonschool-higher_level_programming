@@ -1,0 +1,6 @@
+>>> write_file("my_test_file.txt", "Hello, World!")
+13
+>>> with open("my_test_file.txt", "r") as file:
+...     file.read()
+'Hello, World!'
+
