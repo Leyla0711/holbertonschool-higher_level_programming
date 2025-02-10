@@ -1,17 +1,8 @@
 #!/usr/bin/python3
+"""Defines a string-to-JSON function."""
 import json
 
+
 def to_json_string(my_obj):
-    """Returns the JSON representation of a Python object as a string.
-
-    Args:
-        my_obj: The Python object to be converted to a JSON string.
-
-    Returns:
-        A JSON string representation of the input object.
-
-    Example:
-        >>> to_json_string([1, 2, 3])
-        '[1, 2, 3]'
-    """
+    """Return the JSON representation of a string object."""
     return json.dumps(my_obj)
