@@ -1,19 +1,17 @@
 #!/usr/bin/python3
-"""
-Module that creates a write file
-"""
+import json
 
-
-def write_file(filename="", text=""):
-    """Function that write text in a file
+def to_json_string(my_obj):
+    """Returns the JSON representation of a Python object as a string.
 
     Args:
-        filename (str, optional): file where to write Defaults to "".
-        text (str, optional): Text to write into the file. Defaults to "".
+        my_obj: The Python object to be converted to a JSON string.
 
     Returns:
-        Number of characters writted
+        A JSON string representation of the input object.
+
+    Example:
+        >>> to_json_string([1, 2, 3])
+        '[1, 2, 3]'
     """
-    with open(filename, 'w', encoding='UTF-8') as file:
-        write_lines = file.write(text)
-        return write_lines
+    return json.dumps(my_obj)
