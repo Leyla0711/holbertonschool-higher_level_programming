@@ -1,47 +1,41 @@
+#!/usr/bin/python3
+"""Defines class and serializes it"""
 import pickle
 
 
 class CustomObject:
+    """class displays attributes
+    Args:
+        name: string
+        age: integer
+        is_student: boolean
+    """
     def __init__(self, name, age, is_student):
+        """method initializes object"""
         self.name = name
         self.age = age
         self.is_student = is_student
 
     def display(self):
-        """Displays the object attributes."""
+        """method prints out attributes"""
         print(f"Name: {self.name}")
-        print(f"Age: {self.age}")
+        print(f"age: {self.age}")
         print(f"Is Student: {self.is_student}")
 
     def serialize(self, filename):
-        """
-        Serializes the current instance of the object and saves it to the given filename.
-
-        Args:
-            filename (str): The file path where the object will be saved.
-        """
+        """method serializes the current instance of the object"""
         try:
-            with open(filename, 'wb') as file:
-                pickle.dump(self, file)
-            print(f"Object successfully serialized to {filename}")
-        except Exception as e:
-            print(f"Error during serialization: {e}")
+            with open(filename, "wb") as f:
+                pickle.dump(self, f)
+        except:
+            return None
 
     @classmethod
     def deserialize(cls, filename):
-        """
-        Deserializes the object from the given filename.
-
-        Args:
-            filename (str): The file path where the object is stored.
-
-        Returns:
-            CustomObject: The deserialized object, or None if an error occurs.
-        """
+        """method returns instance of custom object"""
         try:
-            with open(filename, 'rb') as file:
-                obj = pickle.load(file)
-            return obj
-        except (FileNotFoundError, pickle.UnpicklingError) as e:
-            print(f"Error during deserialization: {e}")
+            with open(filename, "rb") as f:
+                ret = pickle.load(f)
+            return ret
+        except:
             return None
