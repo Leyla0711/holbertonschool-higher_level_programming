@@ -1,5 +1,6 @@
 import pickle
 
+
 class CustomObject:
     def __init__(self, name, age, is_student):
         self.name = name
@@ -13,7 +14,12 @@ class CustomObject:
         print(f"Is Student: {self.is_student}")
 
     def serialize(self, filename):
-        """Serializes the current instance of the object and saves it to the given filename."""
+        """
+        Serializes the current instance of the object and saves it to the given filename.
+
+        Args:
+            filename (str): The file path where the object will be saved.
+        """
         try:
             with open(filename, 'wb') as file:
                 pickle.dump(self, file)
@@ -23,7 +29,15 @@ class CustomObject:
 
     @classmethod
     def deserialize(cls, filename):
-        """Deserializes the object from the given filename."""
+        """
+        Deserializes the object from the given filename.
+
+        Args:
+            filename (str): The file path where the object is stored.
+
+        Returns:
+            CustomObject: The deserialized object, or None if an error occurs.
+        """
         try:
             with open(filename, 'rb') as file:
                 obj = pickle.load(file)
