@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import pickle
 
 class CustomObject:
@@ -8,29 +7,27 @@ class CustomObject:
         self.is_student = is_student
 
     def display(self):
+        """Displays the object attributes."""
         print(f"Name: {self.name}")
         print(f"Age: {self.age}")
         print(f"Is Student: {self.is_student}")
 
     def serialize(self, filename):
+        """Serializes the current instance of the object and saves it to the given filename."""
         try:
             with open(filename, 'wb') as file:
                 pickle.dump(self, file)
+            print(f"Object successfully serialized to {filename}")
         except Exception as e:
-            print(f"Error serializing object: {e}")
+            print(f"Error during serialization: {e}")
 
     @classmethod
     def deserialize(cls, filename):
+        """Deserializes the object from the given filename."""
         try:
             with open(filename, 'rb') as file:
-                return pickle.load(file)
+                obj = pickle.load(file)
+            return obj
         except (FileNotFoundError, pickle.UnpicklingError) as e:
-            print(f"Error deserializing object: {e}")
+            print(f"Error during deserialization: {e}")
             return None
-
-
-# Test code
-if __name__ == "__main__":
-    obj = CustomObject(name="John", age=25, is_student=True)
-    print("Original
-
