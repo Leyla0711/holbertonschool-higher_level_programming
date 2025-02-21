@@ -1,41 +1,48 @@
-def do_GET(self):
-    if self.path == '/':
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write('Hello, this is a simple API!'.encode())
+#!/usr/bin/python3
+"""Defines function that fetches posts"""
+import csv
+import requests
 
-    elif self.path == '/data':
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        data = {
-            "name": "John",
-            "age": 30,
-            "city": "New York"
-        }
-        self.wfile.write(json.dumps(data).encode('utf-8'))
 
-    elif self.path == '/status':
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write("OK".encode('utf-8'))
+def fetch_and_print_posts():
+    """function fetches and prints"""
+    url = "https://jsonplaceholder.typicode.com/posts"
 
-    elif self.path == '/info':
-        self._set_headers(content_type='application/json')
-        data = {
-            "version": "1.0",
-            "description": "A simple API built with http.server"
-        }
-        self.wfile.write(json.dumps(data).encode('utf-8'))
+    try:
+        res = requests.get(url)
+        res.raise_for_status()  # Raise an exception for HTTP errors
+    except requests.RequestException as e:
+        print(f"Failed to retrieve data: {e}")
+        return
 
-    else:
-        self.send_response(404)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        error_data = {
-            "error": "Not Found",
-            "message": f"The endpoint '{self.path}' does not exist."
-        }
-        self.wfile.write(json.dumps(error_data).encode('utf-8'))
+    print("Status Code: {}".format(res.status_code))
+
+    if res.headers.get("Content-Type") == "application/json; charset=utf-8":
+        json_data = res.json()
+        for post in json_data:
+            print(post["title"])
+
+def fetch_and_save_posts():
+    """
+    Fetches all posts from JSONPlaceholder and saves them in a csv file.
+    """
+    url = "https://jsonplaceholder.typicode.com/posts"
+
+    try:
+        res = requests.get(url)
+    except:
+        print("Failed to retrieve data")
+        return
+
+    json_data = res.json()
+
+    csvfile = "posts.csv"
+
+    filtered_data = [{key: post[key] for key in ('id', 'title', 'body')} for post in json_data]
+
+    headers = ['id', 'title', 'body']
+
+    with open(csvfile, "w", newline="") as file:
+        csv_write = csv.DictWriter(file, fieldnames=headers)
+        csv_write.writeheader()
+        csv_write.writerows(filtered_data)
